@@ -1,12 +1,24 @@
 <div class="container"> 
-
-	<h1>Return On Click Statistics</h1>
+<div class="wrap">
+<h2>Return On Click Statistics</h2>
+<?php echo $this->warning_message;?>
+	<div class="row">
+		<form name="filter_dates" method="POST">
+		<div class="col-md-12" style="text-align:right;" >
+			<form method="post" id="datefilter"> 
+				Filter: <input type="text" name="daterange">	
+				<input name="submit" id="submit" class="button button-primary" value="Ok" type="submit">
+				<input type="hidden" name="usedaterange" value="1">
+			</form>
+		</div>
+		</form>
+	</div>
 
 	<div id="chart_div" style="height: 500px;"></div>
-
+	
 	<div class="panel panel-default">  
 		<div class="panel-heading">
-			Calls from <?php echo date('d M Y',strtotime($date_from)); ?> to <?php echo date('d M Y',strtotime($date_to)); ?>		
+			Calls from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>		
 		</div>
 		<table class="table">
 			<thead class="thead">
@@ -14,17 +26,14 @@
 					<th>#</th>
 					<th>Date</th>
 					<th>Tag</th>
-					<th>Clicks</th>
+					<th>Calls</th>
 				</tr>
 			</thead>
 			<tbody>
 			<?php 
-			if($result):
+			if($call_stat_table_result):
 				$counter = 1;
-				$strToChart = '';
-				foreach ($daily_result as $call):
-					$strToChart .= ",['".date('d M', strtotime($call->day))."',  $call->phone_clicks,      3,			2		]"
-					?>
+				foreach ($call_stat_table_result as $call):		?>
 					<tr>
 						<th scope="row"><?php echo $counter; ?></th>
 						<td><?php echo date('d M', strtotime($call->day)); ?></td>
@@ -37,8 +46,39 @@
 			</tbody>
 		</table>
 	</div>
+	<div class="divider"></div>
+	<div class="panel panel-default">  
+		<div class="panel-heading">
+			Emails from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>		
+		</div>
+		<table class="table">
+			<thead class="thead">
+				<tr>
+					<th>#</th>
+					<th>Date</th>
+					<th>Contact Form</th>
+					<th>Emails Received</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php 
+			if($email_stat_table_result):
+				$counter = 1;
+				foreach ($email_stat_table_result as $email):		?>
+					<tr>
+						<th scope="row"><?php echo $counter; ?></th>
+						<td><?php echo date('d M', strtotime($email->day)); ?></td>
+						<td><?php echo $email->form_name; ?></td>
+						<td><?php echo $email->emails_sent; ?></td>
+					</tr>		<?php
+					$counter++;
+				endforeach;
+			endif;		?>
+			</tbody>
+		</table>
+	</div>
 
-	<h3>Shortcodes</h3>
+	<h3 style="padding: 35px 5px 20px 5px;">Shortcodes</h3>
 	
 	<div class="row">
 		<div class="col-md-4 col-sm-6 cl-xs-12">
@@ -112,34 +152,35 @@
 			<p>phone_number: You must inform the phone number to be called. Example: [call_link phone_number="0425 999 000"].</p>
 			<p>hide: you can choose if you whant to show or hide the complete phone number. Example: [call_button hide="false" phone_number="0425 999 000"].</p>
 			<p>tag: you can see this tag on reports. Example: [call_button tag="Home Page" phone_number="0425 999 000"].</p>
-			<p>style: You can choose betwen few styles on buttons - primary, default, success, warning or danger. Example: [call_button style="warning" phone_number="0425 999 000"].<br />
-			Notice: these pre-defined styles requires the BuildPress Theme.
+			<p>style: You can choose betwen few styles on buttons - primary, default, success, warning or danger. Example: [call_button style="warning" phone_number="0425 999 000"].<br />	
+			<!--  primary, default, success, info, warning or danger -->
 			</p>
 
 		</div>
 	</div> 	
+	<div class="row">
+		<div class="col-md-12" style="text-align:right;">
+			© 2016 <a href="http://www.returnonclick.com.au" target="_blank"> Return On Click </a>All rights reserved.
+		</div>
+	</div> 	
 </div>
-
-
-
-
-
-
+</div>
 
 <script type="text/javascript">
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawVisualization);
 
+	<?php if(strlen($stat_chart['strToChart']) > 2): 		?>
 
 	function drawVisualization() {
 		// Some raw data (not necessarily accurate)
 		var data = google.visualization.arrayToDataTable([
 			['Day', 'Calls', 'Emails', 'Average'	]
-			<?php echo $strToChart; ?>
+			<?php echo $stat_chart['strToChart'] ; ?>
 		]);
 
 		var options = {
-			title : 'Contact Statistics',
+			title : 'Stats from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>',
 			vAxis: {title: ''},
 			hAxis: {title: 'Day'},
 			seriesType: 'bars',
@@ -149,12 +190,36 @@
 	    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 	    chart.draw(data, options);
 	}
+
+	<?php endif; 		?>
 </script>
 
-<?php
-	// echo '<pre>';
-	// //echo $sql_query;
-	// print_r($result);
-	// print_r($total_result);
-	// echo '</pre>';
-?>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('input[name="daterange"]').daterangepicker({
+	    "ranges": {
+	       'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(30, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+           'This Year': [moment().startOf('year'), moment().endOf('year')],
+	    },
+	    "locale": {
+	        "format": "DD-MM-YYYY",
+	    },
+	    "parentEl": "daterange",
+	    "startDate": "<?php echo date('d-m-Y',strtotime($this->date_from)); ?>",
+	    "endDate": "<?php echo date('d-m-Y',strtotime($this->date_to)); ?>",
+	    "opens": "left"
+	}, function(start, end, label) {
+		//$('#datefilter').submit();		it was not working... i don't know why
+		//console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+	});
+
+
+
+	// $('input[name="daterange"]').daterangepicker();
+});
+</script>

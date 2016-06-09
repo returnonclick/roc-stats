@@ -3,9 +3,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * ROC_Call_Shortcode class.
+ * ROC_Stat_Shortcode class.
  */
-class  ROC_Call_Shortcode {
+class  ROC_Stat_Shortcode {
 
 	/**
 	 * Constructor
@@ -32,9 +32,15 @@ class  ROC_Call_Shortcode {
 		wp_enqueue_script('jquery');
 
 		// frontend JS to send Ajax
-    	wp_register_script( 'roc_call_plugin_js' , plugins_url( '/assets/js/script.js',  dirname( __FILE__ ) ), array('jquery') );
-		wp_enqueue_script( 'roc_call_plugin_js' );
-		wp_localize_script( 'roc_call_plugin_js', 'ajax_url', admin_url( 'admin-ajax.php' ) );		//set the variable at JS file
+    	wp_register_script( 'roc_stat_plugin_js' , plugins_url( '/assets/js/script.js',  dirname( __FILE__ ) ), array('jquery') );
+		wp_enqueue_script( 'roc_stat_plugin_js' );
+
+		// frontend CSS
+		wp_register_style( 'roc_stat_plugin_css' , plugins_url( '/assets/css/style.css',  dirname( __FILE__ ) ) );
+		wp_enqueue_style( 'roc_stat_plugin_css' );
+
+		//indicates to JS the ajax URL
+		wp_localize_script( 'roc_stat_plugin_js', 'ajax_url', admin_url( 'admin-ajax.php' ) );		//set the variable at JS file
 
 	}
 	

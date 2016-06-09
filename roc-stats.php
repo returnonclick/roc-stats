@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: 	ROC - Call Tracking
+ * Plugin Name: 	ROC - Statistics
  * Plugin URI:		http://wordpress.org/plugins/roc-call-tracking/
- * Description:		Track clicks on "Call" button or link
+ * Description:		Save phone clicks and emails sent stats and show it for admin users
  * Version: 		1.0
  * Author:      	Jossandro Balardin - Return On Click
  * Author URI:  	http://www.returnonclick.com.au
- * Text Domain: 	roc-call
+ * Text Domain: 	roc-stats
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Class  ROC_Call.
  *
- * Main ROC - Call Tracking.
+ * Main ROC - Statistics.
  *
  * @class		 ROC_Call
  * @version		1.0
@@ -83,8 +83,8 @@ class  ROC_Call {
 		/**
 		 * Including all classes needed.
 		 */
-		require_once plugin_dir_path( __FILE__ ) . 'class/class-roc-call-save.php';
-		require_once plugin_dir_path( __FILE__ ) . 'class/class-roc-call-shortcode.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class/class-roc-stats-save.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class/class-roc-stats-shortcode.php';
 		//Admin Class
 		require_once plugin_dir_path( __FILE__ ) . 'admin/class-admin.php';
 		
@@ -98,9 +98,9 @@ class  ROC_Call {
 		add_shortcode( 'place_part_info', array($this, 'get_part_place_info' ));		//Get partial information
 
 		//Instantiate objects, initialize classes and objects
-		new ROC_Call_shortcode();
-		new ROC_Call_Save();
-		new ROC_Call_Admin();
+		new ROC_Stat_shortcode();
+		new ROC_Stat_Save();
+		new ROC_Stat_Admin();
 		
 		
 	}
@@ -143,10 +143,10 @@ class  ROC_Call {
  */
 if ( ! function_exists( 'ROC_Call' ) ) :
 
- 	function  ROC_Call() {
+ 	function  ROC_Stat() {
 		return  ROC_Call::instance();
 	}
 
 endif;
 
-ROC_Call();
+ROC_Stat();
