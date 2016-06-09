@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class that holds most of the admin functionality for ROC Call admin.
+ * Class that holds most of the admin functionality for ROC Stat admin.
  */
 class ROC_Stat_Admin {
 
@@ -15,7 +15,7 @@ class ROC_Stat_Admin {
 	 * Class constructor
 	 */
 	function __construct() {
-		add_action( 'admin_menu', array( $this, 'roc_call_register_admin_page'));
+		add_action( 'admin_menu', array( $this, 'roc_stat_register_admin_page'));
 		
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts_styles' ));	
 		
@@ -52,10 +52,10 @@ class ROC_Stat_Admin {
 	}
 	
 
-	public function roc_call_register_admin_page(){
+	public function roc_stat_register_admin_page(){
 
 		// Base 64 encoded SVG image
-		$icon_svg = 'data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAMAAACnUt2HAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAACOlBMVEUAAACPj49UVFSFhYUREREzMzNvb29qamqCgoLKyso9PT1cXFxwcHAgICB0dHR8fHzf399VVVUoKChISEigoKCFhYXMzMzLy8soKCiAgIB8fHykpKRbW1tkZGR0dHRMTEw5OTmhoaGNjY0mJiYuLi6Li4tvb29wcHCXl5coKChubm5WVlZgYGBwcHBxcXFZWVlfX1+4uLgXFxdbW1tgYGBsbGxra2tnZ2djY2OAgIA2NjZfX19bW1tnZ2cuLi43NzcyMjJGRkZDQ0M0NDRgYGAtLS01NTVVVVWqqqo+Pj4wMDBTU1Nzc3OmpqZ+fn5QUFAtLS2wsLDNzc0cHBxqamqJiYl9fX02NjZra2saGhpaWlqKiopiYmI/Pz8sLCwuLi4xMTFDQ0NpaWmOjo6lpaWsrKzR0dGoqKje3t5jY2NSUlImJiY2NjY3NzcuLi5vb29kZGRYWFgVFRUiIiJHR0dLS0sxMTFEREQoKChmZmZgYGBpaWlWVlYAAAA7OztQUFBMTEwaGhqpqanl5eU/Pz8RERF9fX1oaGg0NDRZWVm3t7fMzMzT09M1NTV0dHRnZ2dVVVUhISFfX1+tra3Q0NChoaEfHx9tbW1PT08gICCjo6Pi4uLHx8fPz88vLy9OTk5TU1NcXFxBQUFRUVE9PT1DQ0M6OjoZGRknJyd5eXl1dXV2dnZ4eHh/f38EBARubm5qampra2t6enqSkpJ3d3cCAgINDQ18fHxzc3NxcXGAgIBsbGxlZWUyMjI6tIzwAAAAY3RSTlMAAb1gAdjgm4cJxuodveATE4CVkCoIICrL4RQu+2EknOXNPmBbWutTYtvS0eFUbMbjLPnE41SLuN5O0vL3sO7Nl6Cbq5fs/v5zx/7+/ll//egSGemCTf6zReyfEHnJ6e/dqUDG3kfmAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAT1JREFUGNNjYIAARiZmBgzAwsrGzsGJLsqVnMLNgy7Im5rGx8/AICAoJCwCEREVE5dIz5CUYmCQlsnMkgUJyckrZOfk5uUrKimrqKoVFKoDxTSKinNLSsvKKzS1Kqu0daprdBkY9GrrCrPqGxqbmlta2/L1DdqBgoZGHZ2lpVkduV3dPb25fcYm/TWmDGatnQ0NpRMmTkqbPGXqtExzi+k1lgxWORNKS2c0zJw1e87c2aXzrG0K6m0Z7BrmNyxY0Ftc0zlhwsJF9g6OTs4uDK6lNYuXZLu5L122ZMmi5R4Qd3uWlazw8vZZuWr16jVrp/lCBP3W1fn7rFy/YePG9k0NAYEQwaDgpZvz+zds2FC9ZeXWEFhIhG5bFLZ9x84tu3a3hiPCJyKyuHzPxsK9rVHIoRYdExsXn5CYBBcAAHHhao2+ulFCAAAAAElFTkSuQmCC';
+		$icon_svg = 'data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABIFBMVEUAAACeo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6ieo6gAAABjugU9AAAAXnRSTlMABmfDyGwLYOvivLvda41kHhz6o3ncsKdd4S9jtAH09xdixfIJYft6vRgC5fB4wQfMb5igd5/xqKK5x8J76mhWDex2WoIFMSJRDkI+V+YspiMzEqTjDwzozckRfNiBKMUl9gAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAADrSURBVBjTTdDnWgIxEIXhIwgKFhQELCg2wFVRERUb9t5797v/yzDZZYPzZ5J3nkwmkWx0RKKY6IzF5aKrGxLJnl7jfaH1Q2rALgZjaTItHCIb1uM58jYPj4yOEXWtCsSk8QmKk1NMO51hViXTvfxfU1Q0Z2cpe22dZ0GLFkl7VZaWA11BRYJQjdUA6w4TWqMe4Dra8K2hTbZab9xGO9Z2lQwPSzS1Z2z/4JCj0I450SmcncOFG77JpXR1fcPtnbN7qjY9wKOzDAU/Pz3zEnm1q7fSO7mwXDOXfTTynyZV2l//9f1jJ8v+ev72D8C0NzfyQOqRAAAAAElFTkSuQmCC';
 
 		// Add main page
 		$admin_page = add_menu_page('Return On Click Statistics', 
@@ -83,7 +83,6 @@ class ROC_Stat_Admin {
 		}
 
 		$this->check_dependencies();
-
 		
 		$call_stat_table_result = $this->get_call_stat();
 		$email_stat_table_result = $this->get_email_stat();
@@ -91,7 +90,6 @@ class ROC_Stat_Admin {
 		
 		//Get template to show results
 		require_once plugin_dir_path( __FILE__ ) . 'template/admin.php';
-
 		
 	}
 	
@@ -164,9 +162,7 @@ class ROC_Stat_Admin {
 		if( !is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
 			$this->warning_message .= '<h4>This stats depends on Contact Form 7 plugin, please download and activate it before use this plugin.</h4>';
 		}
-		// if ( ! function_exists( 'buildpress_body_class' ) ) {
-		// 	$this->warning_message .= '<h4>This stats depends on BuildPress Theme, please download and activate it before use this plugin.</h4>';	
-		// }
+		
 	}
 
 } /* End of class */

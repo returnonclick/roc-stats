@@ -11,14 +11,7 @@ class  ROC_Stat_Shortcode {
 	 * Constructor
 	 */
 	public function __construct() {
-		
-		//wp_register_style('remodal_css', plugin_dir_path( __FILE__ ).'assets/css/remodal.css' );
-		// wp_register_style('remodal_css', plugins_url( '/assets/css/remodal.css', __FILE__ ), false );
-		// // wp_register_style('remodal-default-theme_css', plugin_dir_path( __FILE__ ).'assets/css/remodal-default-theme.css' );
-		// wp_register_style('remodal-default-theme_css', plugins_url( '/assets/css/remodal-default-theme.css', __FILE__ ), false );
-		// wp_enqueue_style('remodal_css');
-		// wp_enqueue_style('remodal-default-theme_css');
-		
+			
 		add_action( 'wp_enqueue_scripts', array($this, 'enqueue_my_scripts') );
 		
 		// ADD handlers

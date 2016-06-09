@@ -57,20 +57,18 @@ class  ROC_Stat_Save {
 	public function save_mail_sent( $contact_form ) { 
 		// get the form content
 		$submission = WPCF7_Submission::get_instance();
-		$details = array();
+		
 		if ( $submission ) {
 			$formdata = $submission->get_posted_data();
-			$details['sent_email_data'] = $formdata;
 	    }else
 	    	return;
-
-    	$details['sent_form_data'] = (array)$contact_form;
-    	$jsonFormData = json_encode($details);
+    	
+    	$jsonFormData = json_encode($formdata);
 
 		$stats_data = array(
 			'post_title'     => 'email-stat',					//Using post_title to save the Stat Name
 			'post_content'   =>  $jsonFormData,
-			'post_excerpt'	 =>  $contact_form->title,
+			'post_excerpt'	 =>  get_the_title ($contact_form->id()), 
 			'post_type'      =>  ROC_Stat()->get_post_type(),	//Using post_type to save the kind of the post 
 			'comment_status' => 'closed'
 		);
