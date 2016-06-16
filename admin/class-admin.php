@@ -22,7 +22,7 @@ class ROC_Stat_Admin {
 	}
 
 	function load_scripts_styles($hook) {
-		if('toplevel_page_roc-stats' != $hook){
+		if('toplevel_page_roc-stats' != $hook && 'roc-statistics_page_roc-stats/shortcodes' != $hook ){
 			return;
 		}
 
@@ -48,6 +48,11 @@ class ROC_Stat_Admin {
 		wp_register_style('daterangepicker-styles-roc', '//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css');
 		wp_enqueue_style('daterangepicker-styles-roc');		
 
+		wp_register_style( 'roc-stat-plugin' , plugins_url( '/assets/css/style.css',  dirname( __FILE__ ) ) );
+		wp_enqueue_style( 'roc-stat-plugin' );	
+
+		wp_register_script( 'roc-stat-plugin' , plugins_url( '/assets/js/script.js',  dirname( __FILE__ ) ) );
+		wp_enqueue_script( 'roc-stat-plugin' );	
 		
 	}
 	
@@ -62,13 +67,15 @@ class ROC_Stat_Admin {
 									'ROC Statistics', 
 									'manage_options', 
 									'roc-stats', 
-									array( $this, 'load_admin_page' ), 
+									array( $this, 'load_stats_admin_page' ), 
 									$icon_svg, 
 									'100'  
 									);
+
+		add_submenu_page('roc-stats', 'Statistics Shortcodes', 'Shortcodes', 'manage_options', 'roc-stats/shortcodes', array( $this, 'load_shortcodes_admin_page'));
 	}
 
-	public function load_admin_page(){
+	public function load_stats_admin_page(){
 		global $wpdb;
 		
 		$this->post_type = ROC_Stat()->get_post_type();
@@ -89,10 +96,16 @@ class ROC_Stat_Admin {
 		$stat_chart = $this->get_all_stat_per_day();
 		
 		//Get template to show results
-		require_once plugin_dir_path( __FILE__ ) . 'template/admin.php';
+		require_once plugin_dir_path( __FILE__ ) . 'template/stats_admin.php';
 		
 	}
 	
+
+	public function load_shortcodes_admin_page(){
+
+		//Get template to show results
+		require_once plugin_dir_path( __FILE__ ) . 'template/shortcode_admin.php';
+	}
 
 	private function get_call_stat(){
 		global $wpdb;

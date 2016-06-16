@@ -4,7 +4,7 @@
  * Plugin URI:		http://wordpress.org/plugins/roc-call-tracking/
  * Description:		Save phone clicks and emails sent stats and show it for admin users
  * Version: 		1.0
- * Author:      	Jossandro Balardin - Return On Click
+ * Author:      	Return On Click
  * Author URI:  	http://www.returnonclick.com.au
  * Text Domain: 	roc-stats
  */
@@ -85,6 +85,7 @@ class  ROC_Stat {
 		 */
 		require_once plugin_dir_path( __FILE__ ) . 'class/class-roc-stats-save.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class/class-roc-stats-shortcode.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class/class-widget-roc-iconbox.php';
 		//Admin Class
 		require_once plugin_dir_path( __FILE__ ) . 'admin/class-admin.php';
 		
@@ -96,11 +97,10 @@ class  ROC_Stat {
 		new ROC_Stat_shortcode();
 		new ROC_Stat_Save();
 		new ROC_Stat_Admin();
-		
+		new ROC_Icon_Box();
 		
 	}
 
-	
 	public function register_types() {
 		// Interest post type
 		register_post_type( 'statistic',

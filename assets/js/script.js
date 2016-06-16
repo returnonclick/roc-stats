@@ -30,7 +30,9 @@ jQuery(document).ready(function($) {
 		// console.log($(this).data('phone-number'));
 		// console.log($(this).data('hidden'));
 		if($(this).data('hidden')){
-			$(this).text($(this).data('phone-number'));
+			$(this).find( ".phone-call-content" ).text($(this).data('phone-number'));
+			console.log( $(this).find( ".phone-call-content" ));
+			//$(this).text($(this).data('phone-number'));
 		}
 		data['phone_number'] = $(this).data('phone-number'),
 		data['tag'] = $(this).data('tag'),
@@ -59,7 +61,47 @@ jQuery(document).ready(function($) {
 		});
 		return false;
 	}
-	
+
+	//GENERATE SHORTCODE	
+	$('.frm-field').on('blur', function() {
+		var fields = $( ' .frm-field' );
+		var string_shortcode = '[call ';
+
+		fields.each( function() {
+
+			if($(this).attr('type') == 'radio'){
+				if($(this).prop('checked')){
+					if($(this).attr('name') == 'style' && $(this).attr('value') == 'other'){
+						string_shortcode += 'style="'+ $('#styletext').attr('value') + '" ';
+					}else{
+						string_shortcode += $(this).attr('name') +'="'+ $(this).attr('value') + '" ';						
+					}
+					
+				}
+			
+			}else if ($(this).attr('value').length > 0 && $(this).attr('name') != 'styletext'){
+				string_shortcode += $(this).attr('name') +'="'+ $(this).attr('value') + '" ';	
+			}
+			
+        });
+
+		string_shortcode += ']';
+        $('#result-shortcode').val(string_shortcode);
+
+	});
+
+	$('.short-code').focus(function() {
+		
+		$(this).select();
+
+		// Work around Chrome's little problem
+		$(this).mouseup(function() {
+			// Prevent further mouseup intervention
+			$(this).unbind("mouseup");
+			return false;
+		});
+	});
+
 
 });
 
