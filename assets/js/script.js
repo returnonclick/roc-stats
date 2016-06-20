@@ -1,6 +1,8 @@
 
 jQuery(document).ready(function($) {
 
+	$('body').css('background-color','none');
+
 	//Detecting mobile devices
 	var isMobile = {
 	    Android: function() {
@@ -63,7 +65,7 @@ jQuery(document).ready(function($) {
 	}
 
 	//GENERATE SHORTCODE	
-	$('.frm-field').on('blur', function() {
+	$('.frm-field').on('change', function() {
 		var fields = $( ' .frm-field' );
 		var string_shortcode = '[call ';
 
@@ -73,6 +75,8 @@ jQuery(document).ready(function($) {
 				if($(this).prop('checked')){
 					if($(this).attr('name') == 'style' && $(this).attr('value') == 'other'){
 						string_shortcode += 'style="'+ $('#styletext').attr('value') + '" ';
+					}else if($(this).attr('name') == 'style' && $(this).attr('value') == 'none'){
+						string_shortcode += '';
 					}else{
 						string_shortcode += $(this).attr('name') +'="'+ $(this).attr('value') + '" ';						
 					}

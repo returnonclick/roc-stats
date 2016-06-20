@@ -3,6 +3,8 @@
 ======== ADMIN CSS =============
 *******************************/
 
+body { background-color: transparent !important; }
+
 .short-label{
 	text-align:center;
 	padding:15px 0px;

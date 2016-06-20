@@ -139,7 +139,8 @@
 					<p>Style:</p>
 				</div>
 				<div class="col-md-8 col-sm-6 cl-xs-12">
-					<input class="frm-field" type="radio" name="style" id="style-primary" value="primary" checked> <label for="style-primary"><a href="#" class="btn btn-primary">primary</a></label> <br />
+					<input class="frm-field" type="radio" name="style" id="style-none" value="none" checked> <label for="style-none">None</label> <br />
+					<input class="frm-field" type="radio" name="style" id="style-primary" value="primary" > <label for="style-primary"><a href="#" class="btn btn-primary">primary</a></label> <br />
   					<input class="frm-field" type="radio" name="style" id="style-default" value="default"> <label for="style-default"><a href="#" class="btn btn-default">default</a></label> <br />
   					<input class="frm-field" type="radio" name="style" id="style-other" value="other"> <label for="style-other">Custom CSS class</label>
   					<input class="frm-field" type="text" id="styletext" name="styletext">
@@ -160,7 +161,7 @@
 	<div class="jumbotron" >
 	<div class="row">
 		<div class="col-md-12">
-			<p>For adding phone links or buttons you must use call shortcodes which looks like that: [call to="0425 999 000"]. <br /> You can use that with or without colse tag which just is necessary if you whant to change the content of the link (text inside)</p>
+			<p>For adding phone links or buttons you must use call shortcodes which looks like that: [call to="0425 999 000"]. </p>
 			<p>There is more option with different attributes - phone_number, style, hide, content and tag. </p>
 			<p>phone_number: You must inform the phone number to be called. Example: [call to="0425 999 000"].</p>
 			<p>hide: you can choose if you whant to show or hide the complete phone number. Example: [call hide="false" to="0425 999 000"].</p>
@@ -181,60 +182,3 @@
 </div>
 </div>
 
-<script type="text/javascript">
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawVisualization);
-
-	<?php if(strlen($stat_chart['strToChart']) > 2): 		?>
-
-	function drawVisualization() {
-		// Some raw data (not necessarily accurate)
-		var data = google.visualization.arrayToDataTable([
-			['Day', 'Calls', 'Emails', 'Average'	]
-			<?php echo $stat_chart['strToChart'] ; ?>
-		]);
-
-		var options = {
-			title : 'Stats from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>',
-			vAxis: {title: ''},
-			hAxis: {title: 'Day'},
-			seriesType: 'bars',
-			series: {2: {type: 'line'}}
-		};
-
-	    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-	    chart.draw(data, options);
-	}
-
-	<?php endif; 		?>
-</script>
-
-<script type="text/javascript">
-jQuery(document).ready(function($) {
-	$('input[name="daterange"]').daterangepicker({
-	    "ranges": {
-	       'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(30, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-           'This Year': [moment().startOf('year'), moment().endOf('year')],
-	    },
-	    "locale": {
-	        "format": "DD-MM-YYYY",
-	    },
-	    "parentEl": "daterange",
-	    "startDate": "<?php echo date('d-m-Y',strtotime($this->date_from)); ?>",
-	    "endDate": "<?php echo date('d-m-Y',strtotime($this->date_to)); ?>",
-	    "opens": "left"
-	}, function(start, end, label) {
-		//$('#datefilter').submit();		it was not working... i don't know why
-		//console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-	});
-
-
-
-	// $('input[name="daterange"]').daterangepicker();
-});
-</script>

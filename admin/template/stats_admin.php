@@ -1,5 +1,5 @@
-<div class="container"> 
 <div class="wrap">
+<div class="container"> 
 <h2>Return On Click Statistics</h2>
 <?php echo $this->warning_message;?>
 	<div class="row">
@@ -16,9 +16,10 @@
 
 	<div id="chart_div" style="height: 500px;"></div>
 	
+	<h3 style="padding: 35px 5px 20px 5px;">Calls Details</h3>
 	<div class="panel panel-default">  
 		<div class="panel-heading">
-			Calls from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>		
+			from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>		
 		</div>
 		<table class="table">
 			<thead class="thead">
@@ -47,9 +48,10 @@
 		</table>
 	</div>
 	<div class="divider"></div>
+	<h3 style="padding: 35px 5px 20px 5px;">Email Details</h3>
 	<div class="panel panel-default">  
 		<div class="panel-heading">
-			Emails from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>		
+			from <?php echo date('d M Y',strtotime($this->date_from)); ?> to <?php echo date('d M Y',strtotime($this->date_to)); ?>		
 		</div>
 		<table class="table">
 			<thead class="thead">
@@ -78,86 +80,6 @@
 		</table>
 	</div>
 
-	<h3 style="padding: 35px 5px 20px 5px;">Shortcodes</h3>
-	
-	<div class="row">
-		<div class="col-md-4 col-sm-6 cl-xs-12">
-			<div class="row">
-				<div class="col-md-12" style="text-align:center;padding-bottom:5px;height:39px;">
-					<a href="#">0425 999 ...</a>
-				</div>
-				<div class="col-md-12">
-					<pre>[call_link tag="First" phone_number="0425 999 000"]</pre>
-				</div>		
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 cl-xs-12">
-			<div class="row">
-				<div class="col-md-12" style="text-align:center;padding-bottom:5px;">
-					<a href="#" class="btn btn-primary">Call Now</a>
-				</div>
-				<div class="col-md-12">
-					<pre>[call_button style="primary" hide="false" phone_number="0425 999 000"]Call Now[/call_button]</pre>
-				</div>		
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 cl-xs-12">
-			<div class="row">
-				<div class="col-md-12" style="text-align:center;padding-bottom:5px;">
-					<a href="#" class="btn btn-danger">0425 999 ...</a>
-				</div>
-				<div class="col-md-12">
-					<pre>[call_button tag="Second" style="danger" phone_number="0425 999 000"]</pre>
-				</div>		
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-md-4 col-sm-6 cl-xs-12">
-			<div class="row">
-				<div class="col-md-12" style="text-align:center;padding-bottom:5px;">
-					<a href="#" class="btn btn-success">0425 999 ...</a>
-				</div>
-				<div class="col-md-12">
-					<pre>[call_button style="success" phone_number="0425 999 000"]</pre>
-				</div>		
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 cl-xs-12">
-			<div class="row">
-				<div class="col-md-12" style="text-align:center;padding-bottom:5px;">
-					<a href="#" class="btn btn-warning">0425 999 ...</a>
-				</div>
-				<div class="col-md-12">
-					<pre>[call_button style="warning" phone_number="0425 999 000"]Call Now[/call_button]</pre>
-				</div>		
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6 cl-xs-12">
-			<div class="row">
-				<div class="col-md-12" style="text-align:center;padding-bottom:5px;">
-					<a href="#" class="btn btn-default">0425 999 000</a>
-				</div>
-				<div class="col-md-12">
-					<pre>[call_button hide="false" style="default" phone_number="0425 999 000"]</pre>
-				</div>		
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<p>For adding phone links or buttons you must use call_link or call_button shortcodes which looks like that: [call_button phone_number="0425 999 000"]PhoneNumber[/call_button]. <br /> You can use that with or without colse tag which just is necessary if you whant to change the content of the link (text inside)</p>
-			<p>There is more option with different attributes - phone_number, style, hide, tag. </p>
-			<p>phone_number: You must inform the phone number to be called. Example: [call_link phone_number="0425 999 000"].</p>
-			<p>hide: you can choose if you whant to show or hide the complete phone number. Example: [call_button hide="false" phone_number="0425 999 000"].</p>
-			<p>tag: you can see this tag on reports. Example: [call_button tag="Home Page" phone_number="0425 999 000"].</p>
-			<p>style: You can choose betwen few styles on buttons - primary, default, success, warning or danger. Example: [call_button style="warning" phone_number="0425 999 000"].<br />	
-			<!--  primary, default, success, info, warning or danger -->
-			</p>
-
-		</div>
-	</div> 	
 	<div class="row">
 		<div class="col-md-12" style="text-align:right;">
 			© 2016 <a href="http://www.returnonclick.com.au" target="_blank"> Return On Click </a>All rights reserved.
