@@ -3,6 +3,9 @@ jQuery(document).ready(function($) {
 
 	$('body').css('background-color','none');
 
+	$('.panel-first-child').css('background-color','transparent');
+
+
 	//Detecting mobile devices
 	var isMobile = {
 	    Android: function() {
